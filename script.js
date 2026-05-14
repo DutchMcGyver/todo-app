@@ -21,8 +21,8 @@ todoInput.addEventListener('keypress', (e) => {
 });
 
 function toggleTheme() {
-    const html = document.documentElement;
-    const isDarkTheme = html.classList.toggle('dark-theme');
+    const body = document.body;
+    const isDarkTheme = body.classList.toggle('dark-theme');
     
     // Update button icon
     themeToggle.textContent = isDarkTheme ? '🌙' : '☀️';
@@ -33,13 +33,13 @@ function toggleTheme() {
 
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
-    const html = document.documentElement;
+    const body = document.body;
     
     if (savedTheme === 'dark') {
-        html.classList.add('dark-theme');
+        body.classList.add('dark-theme');
         themeToggle.textContent = '🌙';
     } else {
-        html.classList.remove('dark-theme');
+        body.classList.remove('dark-theme');
         themeToggle.textContent = '☀️';
     }
 }
