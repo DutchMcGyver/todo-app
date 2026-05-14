@@ -1,9 +1,16 @@
 const todoInput = document.getElementById('todoInput');
 const addBtn = document.getElementById('addBtn');
 const todoList = document.getElementById('todoList');
+const themeToggle = document.getElementById('themeToggle');
 
-// Load todos from localStorage on page load
-document.addEventListener('DOMContentLoaded', loadTodos);
+// Load theme preference and todos on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadTheme();
+    loadTodos();
+});
+
+// Theme toggle handler
+themeToggle.addEventListener('click', toggleTheme);
 
 // Add event listeners
 addBtn.addEventListener('click', addTodo);
@@ -12,6 +19,30 @@ todoInput.addEventListener('keypress', (e) => {
         addTodo();
     }
 });
+
+function toggleTheme() {
+    const html = document.documentElement;
+    const isDarkTheme = html.classList.toggle('dark-theme');
+    
+    // Update button icon
+    themeToggle.textContent = isDarkTheme ? '🌙' : '☀️';
+    
+    // Save preference to localStorage
+    localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const html = document.documentElement;
+    
+    if (savedTheme === 'dark') {
+        html.classList.add('dark-theme');
+        themeToggle.textContent = '🌙';
+    } else {
+        html.classList.remove('dark-theme');
+        themeToggle.textContent = '☀️';
+    }
+}
 
 function addTodo() {
     const todoText = todoInput.value.trim();
